@@ -1,0 +1,4 @@
+/* Estilos base adicionales si se requieren */
+body {
+  -webkit-tap-highlight-color: transparent;
+}
