@@ -4,11 +4,11 @@
  */
 
 const GeoModulo = {
-  // Obtiene las coordenadas actuales del dispositivo
+  // Obtiene las coordenadas actuales de alta precisión
   obtenerUbicacion: () => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject('La geolocalización no es compatible con este dispositivo o navegador.');
+        reject('La geolocalización no es compatible con este dispositivo.');
         return;
       }
 
@@ -16,7 +16,7 @@ const GeoModulo = {
         (position) => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
-          const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+          const googleMapsUrl = `https://maps.google.com/?q=${lat},${lon}`;
           
           resolve({
             latitud: lat,
@@ -30,40 +30,35 @@ const GeoModulo = {
               reject('Permiso de ubicación denegado por el usuario.');
               break;
             case error.POSITION_UNAVAILABLE:
-              reject('La información de ubicación no está disponible.');
+              reject('La ubicación no está disponible.');
               break;
             case error.TIMEOUT:
-              reject('Se agotó el tiempo de espera para obtener la ubicación.');
+              reject('Se agotó el tiempo de espera.');
               break;
             default:
-              reject('Ocurrió un error desconocido al obtener la ubicación.');
+              reject('Error desconocido en GPS.');
           }
         },
         {
-          enableHighAccuracy: true, // Forzar uso de GPS de alta precisión
-          timeout: 10000,           // Esperar máximo 10 segundos
-          maximumAge: 0             // No usar ubicaciones guardadas en caché
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
         }
       );
     });
   },
 
-  // Genera el enlace de WhatsApp con el texto de la factura y la ubicación
+  // Genera el formato de texto comercial y abre WhatsApp
   enviarPorWhatsApp: (telefonoDestino, datosFactura, datosGeo) => {
-    // Estructuración del mensaje con formato limpio para WhatsApp
-    let mensaje = `*📄 NUEVA FACTURA GENERADA*\n`;
+    let mensaje = `*📄 NUEVA FACTURA GENERADA*\n\n`;
     mensaje += `*Cliente:* ${datosFactura.cliente}\n`;
-    mensaje += `*Total:* $${datosFactura.total}\n\n`;
+    mensaje += `*Total:* $${Number(datosFactura.total).toLocaleString('es-CO')}\n\n`;
     mensaje += `*📍 Ubicación del Registro:*\n${datosGeo.urlMaps}\n\n`;
     mensaje += `_Hecha por Vibras Positivas HM_`;
 
-    // Codificar el texto para que sea válido en una URL
     const mensajeCodificado = encodeURIComponent(mensaje);
-    
-    // Crear el enlace universal de WhatsApp (funciona en PC y móviles)
     const urlWhatsApp = `https://wa.me/${telefonoDestino}?text=${mensajeCodificado}`;
     
-    // Abrir en una pestaña nueva
     window.open(urlWhatsApp, '_blank');
   }
 };
