@@ -9,6 +9,9 @@
   <meta name="theme-color" content="#1e3a8a">
   
   <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen text-gray-800 antialiased">
 
@@ -46,7 +49,7 @@
           <p class="text-xs text-gray-400 mt-1">Incluya el código de país sin el signo +</p>
         </div>
         
-        <button id="btnProcesar" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-lg w-full transition duration-200 mt-2 shadow-lg shadow-blue-600/20 active:scale-[0.98]">
+        <button id="btnProcesar" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-6 rounded-lg w-full transition duration-200 mt-2 shadow-lg shadow-blue-600/20 active:scale-[0.98] cursor-pointer">
           Procesar y Enviar por WhatsApp
         </button>
 
@@ -60,6 +63,7 @@
     <p class="font-semibold text-white mt-1 tracking-wide">Hecha por VIBRAS POSITIVAS HM</p>
   </footer>
 
+  <script src="js/db.js"></script>
   <script src="js/geo.js"></script>
   <script src="js/app.js"></script>
 </body>
