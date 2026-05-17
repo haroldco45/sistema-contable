@@ -1,0 +1,22 @@
+{
+  "name": "Sistema Contable Cloud HM",
+  "short_name": "Contable HM",
+  "description": "Software de gestión contable, facturación y control de inventarios.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a8a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
